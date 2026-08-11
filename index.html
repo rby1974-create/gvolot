@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מרחב אינטראקטיבי: עקרונות גבולות בריאים וערך עצמי</title>
-    <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
     <div id="root"></div>
 
     <script type="text/babel">
         function App() {
-            const [activeTab, setActiveTab] = React.useState('presentation');
+            const [activeTab, setActiveTab] = React.useState('intro');
             const [selectedActivity, setSelectedActivity] = React.useState(null);
             const [activeGameSubTab, setActiveGameSubTab] = React.useState('hub');
             
@@ -30,9 +27,7 @@
                 { word: 'חברות', hint: 'קשר טוב בין ילדים, שמבוסס על כבוד הדדי ולא חוצה גבולות של פגיעה או העלבה', category: 'בית ספר וכיתה' },
                 { word: 'פרטיות', hint: 'הזכות של אבא, אמא או האחים שלי להיות לבד בחדר שלהם בלי שיפריעו להם', category: 'בית ומשפחה' },
                 { word: 'חוקי הבית', hint: 'הכללים שנקבעו יחד עם ההורים כדי שהבית יהיה מסודר, בטוח ונעים לכולם', category: 'בית ומשפחה' },
-                { word: 'זמן מסך', hint: 'הגבול שמגדיר כמה שעות ביום מותר לנו להיות מול הטאבלט, הטלוויזיה או הטלפון', category: 'בית ומשפחה' },
-                { word: 'בטיחות', hint: 'הסיבה המרכזית שבגללה ההורים מציבים לנו גבולות (כמו לא לגעת בחשמל או באש)', category: 'בית ומשפחה' },
-                { word: 'כבוד הורי', hint: 'הדרך שבה אנחנו מתייחסים להורים שלנו, גם כשהם אומרים לנו "לא" או מציבים גבול', category: 'בית ומשפחה' }
+                { word: 'זמן מסך', hint: 'הגבול שמגדיר כמה שעות ביום מותר לנו להיות מול הטאבלט, הטלוויזיה או הטלפון', category: 'בית ומשפחה' }
             ];
             const [wallIndex, setWallIndex] = React.useState(0);
             const [guessedLetters, setGuessedLetters] = React.useState([]);
@@ -60,13 +55,7 @@
                 { text: 'לשחק בטלפון הנייד מתחת לשולחן בזמן השיעור', category: 'outside' },
                 { text: 'לעמוד בתור לקפיטריה בלי לדחוף או לעקוף', category: 'inside' },
                 { text: 'להמשיך להציק לחבר אחרי שהוא אמר בבירור "די, תפסיק!"', category: 'outside' },
-                { text: 'להרים יד ולחכות שיקראו בשמי לפני שאני עונה', category: 'inside' },
-                { text: 'לזרוק עטיפת חטיף על הרצפה בחצר ולא בפח', category: 'outside' },
-                { text: 'להזמין למשחק חבר שיושב לבד בצד בהפסקה', category: 'inside' },
-                { text: 'לדפוק על הדלת של החדר של אמא ואבא לפני שנכנסים', category: 'inside' },
-                { text: 'להמשיך לשחק בטאבלט למרות שאמא אמרה שזמן המסכים נגמר', category: 'outside' },
-                { text: 'לשים את הנעליים והתיק במקום מיד כשנכנסים הביתה', category: 'inside' },
-                { text: 'לפתוח את המקרר ולקחת ממתק בלי לשאול אם מותר לפני ארוחת ערב', category: 'outside' }
+                { text: 'להרים יד ולחכות שיקראו בשמי לפני שאני עונה', category: 'inside' }
             ];
             const [sortingIndex, setSortingIndex] = React.useState(0);
             const [sortingScore, setSortingScore] = React.useState(0);
@@ -77,9 +66,7 @@
             React.useEffect(() => {
                 let interval = null;
                 if (sortingActive && sortingTimer > 0) {
-                    interval = setInterval(() => {
-                        setSortingTimer((prev) => prev - 1);
-                    }, 1000);
+                    interval = setInterval(() => setSortingTimer(prev => prev - 1), 1000);
                 } else if (sortingTimer === 0) {
                     setSortingActive(false);
                 }
@@ -106,73 +93,66 @@
             const wheelDilemmas = [
                 {
                     title: 'דילמת רכוש וחפצים',
-                    situation: 'חזרת מההפסקה וגילית שחבר מהכיתה לקח לך את הטושים החדשים מהשולחן והתחיל לצבוע איתם, בלי לבקש רשות.',
+                    situation: 'חזרת מההפסקה וגילית שחבר מהכיתה לקח לך את הטושים החדשים מהשולחן בלי לבקש רשות.',
                     options: [
-                        { text: 'לחטוף לו את הטושים מהיד ולצעוק עליו בפני כולם.', correct: false, points: 0, feedback: '🔴 חציית גבול! תוקפנות יוצרת מלחמה חדשה.' },
-                        { text: 'לא להגיד כלום, להתעצב בצד ולחכות שהוא יסיים.', correct: false, points: 5, feedback: '🟡 וויתור על הגבול שלך. השתיקה מובילה לתסכול.' },
-                        { text: 'לגשת אליו ולומר ברוגע: "הטושים האלו שלי, בבקשה תחזיר לי אותם. פעם הבאה תבקש ואשמח להשאיל לך".', correct: true, points: 10, feedback: '🟢 הצבת גבול מכבדת ואסרטיבית!' }
+                        { text: 'לחטוף לו את הטושים מהיד ולצעוק עליו בפני כולם.', correct: false, feedback: '🔴 חציית גבול! תוקפנות יוצרת עימות.' },
+                        { text: 'לגשת אליו ולומר ברוגע: "הטושים האלו שלי, בבקשה תחזיר לי אותם".', correct: true, feedback: '🟢 הצבת גבול מכבדת ואסרטיבית!' }
                     ]
                 },
                 {
                     title: 'דילמת המרחב האישי',
-                    situation: 'בזמן העמידה בתור לשיעור ספורט, ילד מהכיתה עומד קרוב מדי אליך, נצמד אליך ודוחף קצת, למרות שזה ממש לא נעים לך.',
+                    situation: 'בזמן העמידה בתור לשיעור ספורט, ילד עומד קרוב מדי אליך ונצמד אליך למרות שלא נעים לך.',
                     options: [
-                        { text: 'להסתובב אליו, לעשות צעד קטן לאחור ולומר: "אתה עומד קרוב מדי וזה מפריע לי, בבקשה תשמור על מרחב אישי".', correct: true, points: 10, feedback: '🟢 הצבת גבול מכבדת ובריאה!' },
-                        { text: 'לדחוף אותו חזרה חזק כדי שילמד לקח.', correct: false, points: 0, feedback: '🔴 חציית גבול! תגובה פיזית תוקפנית.' },
-                        { text: 'לסבול בשקט ולנסות להצטמק כדי לא להפריע לו.', correct: false, points: 5, feedback: '🟡 וויתור מוחלט על המרחב והגוף שלך.' }
+                        { text: 'להסתובב אליו, לעשות צעד אחור ולומר: "אתה עומד קרוב מדי וזה מפריע לי".', correct: true, feedback: '🟢 הצבת גבול מכבדת ובריאה!' },
+                        { text: 'לדחוף אותו חזרה חזק כדי שילמד לקח.', correct: false, feedback: '🔴 חציית גבול ותגובה פיזית.' }
                     ]
                 }
             ];
             const [currentWheelIndex, setCurrentWheelIndex] = React.useState(0);
             const [wheelResult, setWheelResult] = React.useState(null);
 
-            // Escape Room State
-            const [escapeRoomStage, setEscapeRoomStage] = React.useState(1);
-            const [room1Items, setRoom1Items] = React.useState({ socks: false, juice: false, charger: false });
-            const [room2Actions, setRoom2Actions] = React.useState({ student1: false, student2: false, student3: false });
-            const [room2CodeInput, setRoom2CodeInput] = React.useState('');
-            const [room2Unlocked, setRoom2Unlocked] = React.useState(false);
-            const [room2Error, setRoom2Error] = React.useState('');
-            const [room3BorderDrawn, setRoom3BorderDrawn] = React.useState(false);
-            const [room3Rules, setRoom3Rules] = React.useState({ rule1: false, rule2: false, rule3: false });
-
             // Cards state
             const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
             const [isFlipped, setIsFlipped] = React.useState(false);
 
-            // Lotto state
-            const [lottoChecked, setLottoChecked] = React.useState({});
-
+            // 15 Comprehensive Activities Data
             const activitiesList = [
-                { id: 1, title: 'מיפוי הקול הפנימי', story: 'דנה יושבת בחדר ומרגישה שחברה מהכיתה מבקשת ממנה שוב להכין במקומה את העבודה...', question: 'אילו קולות פנימיים עולים בך?', activity: 'זיהוי מחשבות מעכבות.', instructions: ['חלוקה לטורים', 'רישום משפטים', 'שיתוף'] }
+                { id: 1, title: 'מיפוי הקול הפנימי', story: 'דנה יושבת בחדר ומרגישה שחברה מבקשת ממנה שוב להכין את העבודה במקומה...', question: 'אילו קולות פנימיים עולים בך?', activity: 'זיהוי מחשבות מעכבות.', instructions: ['חלוקה לשני טור: קול מרצה מול קול בריא', 'רישום 3 משפטים', 'ניסוח מחדש בצורה מעצימה'] },
+                { id: 2, title: 'משחק תפקידים: הבקשה והסירוב', story: 'תומר ניגש לרוני ומבקש ממנו את המפתחות למשחק החדש...', question: 'איך אומרים לא בלי לפגוע?', activity: 'סימולציית זוגות.', instructions: ['חלוקה לזוגות', 'תרגול אמירת לא שקטה', 'החלפת תפקידים'] },
+                { id: 3, title: 'נוסחת שלושת השלבים בפעולה', story: 'שירה מתקשה לסרב כשמבקשים עזרה ברגע האחרון...', question: 'כיצד שילוב אמפתיה משנה את האווירה?', activity: 'תרגול נוסחת 3 השלבים.', instructions: ['אמפתיה', 'גבול ברור', 'הצעה חלופית'] },
+                { id: 4, title: 'סולם המחירים הרגשיים', story: 'לכל פעולה יש מחיר רגשי וגופני כשמוותרים על הגבולות.', question: 'מה המחיר שאתה משלם?', activity: 'דירוג מצבים בסולם חומרה.', instructions: ['ציור סולם 1-10', 'מיקום סיטואציות', 'ניתוח השפעה'] },
+                { id: 5, title: 'איים של מרחב אישי', story: 'לכל אדם יש מרחב פיזי ורגשי שזקוק להגנה.', question: 'איך שומרים על מרחב?', activity: 'פעילות תנועתית למעגלי מרחב.', instructions: ['תנועה בחדר', 'יצירת אי בטוח דמיוני', 'דיון קבוצתי'] },
+                { id: 6, title: 'כתיבת מכתב לדמות פנימית', story: 'לעיתים פועלת בתוכנו דמות שדורשת שנרצה את כולם.', question: 'מה תאמר לדמות זו?', activity: 'כתיבת מכתב אישי.', instructions: ['כתיבה ישירה', 'תיאור העייפות', 'הגדרת גבול'] },
+                { id: 7, title: 'ניתוח מקרה אמת (Case Study)', story: 'בדיון בקבוצת ווטסאפ מפעילים לחץ חברתי.', question: 'איך מייצרים גבול חברתי מול קבוצה?', activity: 'ניתוח דילמות חברתיות.', instructions: ['חלוקת כרטיסי אירוע', 'ניתוח נקודות מבט', 'גיבוש פתרון'] },
+                { id: 8, title: 'סדנת משפטי מפתח בגוף ראשון', story: 'כשאנו כועסים אנו משתמשים בשפת האשמה.', question: 'איך עוברים לשפת האני?', activity: 'המרת משפטי האשמה.', instructions: ['קבלת רשימת משפטים', 'הוצאת האשמה', 'בנייה מחדש'] },
+                { id: 9, title: 'עצירת חירום: לומר אני חושבת על זה', story: 'הרבה פעמים אומרים כן מהיר מתוך לחץ.', question: 'למה מילת ההשהיה חשובה?', activity: 'אימון על תגובות השהיה.', instructions: ['תרגול משפטי השהיה', 'הדגמה מול כיתה', 'כתיבת פתק אישי'] },
+                { id: 10, title: 'עקביות ועמידה על משמר הגבול', story: 'הצד השני ממשיך ללחוץ למרות שאמרנו לא.', question: 'מה עושים מול לחץ חוזר?', activity: 'טכניקת התקליט השרוט.', instructions: ['הצגת הכלל', 'חזרה שקטה ועקבית', 'התמודדות עם שכנועים'] },
+                { id: 11, title: 'הפרדת התנהגות מזהות האדם', story: 'כשמסרבים לבקשה מרגישים דחייה אישית.', question: 'איך זוכרים שסירוב אינו דחייה?', activity: 'פעילות הפרדה ויזואלית.', instructions: ['ציור מעגלים', 'דוגמאות אישיות', 'הסקת מסקנות'] },
+                { id: 12, title: 'שעת סיפור והזדהות רגשית', story: 'בספרות פוגשים גיבורים המתמודדים עם ריצוי.', question: 'מה נלמד על החיים בכיתה?', activity: 'ניתוח קטעים מספרות.', instructions: ['הקראה מודטת', 'עבודה קבוצתית', 'כתיבת תובנה'] },
+                { id: 13, title: 'קולאז׳ הערך העצמי שלי', story: 'ערך עצמי תלוי בהכרה פנימית ולא באישור חיצוני.', question: 'מה מזין את הערך שלך?', activity: 'יצירת לוח השראה חזותי.', instructions: ['גזירות ומילים', 'הדבקת חוזקות', 'הוספת כותרת'] },
+                { id: 14, title: 'דיבייט: נדיבות מול הקרבה עצמית', story: 'האם צריך תמיד לוותר למען האחר?', question: 'האם גבול פוגעת בנדיבות?', activity: 'דיון כיתתי (דיבייט).', instructions: ['חלוקה לשתי קבוצות', 'הכנת טיעונים', 'קיום דיבייט'] },
+                { id: 15, title: 'יומן אישי ותוכנית פעילות שבועית', story: 'הדרך להפוך ידע לפעולה עוברת בצעדים קטנים.', question: 'מהו גבול שתציב השבוע?', activity: 'הגדרת יעד ותוכנית אישית.', instructions: ['פתיחת דף ביומן', 'בחירת אתגר', 'כתיבת משפט מפתח'] }
             ];
 
-            const dialogueCards = Array.from({ length: 10 }, (_, i) => ({
+            const dialogueCards = Array.from({ length: 30 }, (_, i) => ({
                 id: i + 1,
                 title: `קלף שיח #${i + 1}`,
-                front: `מתי בפעם האחרונה אמרת 'כן' למשהו שרצית לסרב לו?`,
-                back: `הגוף משדר איתותים. ההכרה בכך היא הצעד הראשון.`
+                front: i % 2 === 0 ? `מתי בפעם האחרונה אמרת 'כן' למשהו שמאוד רצית לסרב לו?` : `מה הפחד הכי גדול שלך כשאתה חושב על לומר 'לא'?`,
+                back: `הגוף משדר איתותים. ההכרה בכך והצבת גבול שקט הן הבסיס לבריאות נפשית.`
             }));
 
             return (
                 <div className="min-h-screen bg-slate-50 text-slate-800 p-4 md:p-8">
-                    <header className="max-w-6xl mx-auto bg-white p-6 rounded-2xl shadow-xl mb-8 text-center border border-slate-100">
-                        <div className="relative w-full pt-[54.5455%] shadow-sm mb-4 overflow-hidden rounded-lg bg-slate-100">
-                            <iframe className="absolute inset-0 w-full h-full border-none" src="https://www.canva.com/design/DAHRlnRq-iI/04mh_dCbpOYW7_BRs4nvHg/view?embed" allowFullScreen></iframe>
-                        </div>
-                        <div className="text-xs text-slate-500 mb-4">עיצוב על ידי רוית ראש</div>
-                        <div className="bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-6 rounded-2xl shadow-md">
-                            <h1 className="text-3xl md:text-4xl font-extrabold mb-2">מרחב אינטראקטיבי: עקרונות גבולות בריאים וערך עצמי</h1>
-                            <p className="text-teal-100 text-base">פותח על ידי רוית ראש בן ישי | מבוסס על "עקרונות פסיכולוגיים להצבת גבולות" מאת ד"ר מיכל וייס</p>
-                        </div>
+                    <header className="max-w-6xl mx-auto bg-gradient-to-r from-teal-600 to-cyan-700 text-white p-6 rounded-2xl shadow-xl mb-8 text-center">
+                        <h1 className="text-3xl md:text-4xl font-extrabold mb-2">מרחב אינטראקטיבי: עקרונות גבולות בריאים וערך עצמי</h1>
+                        <p className="text-teal-100 text-base">פותח על ידי רוית ראש בן ישי | מבוסס על "עקרונות פסיכולוגיים להצבת גבולות" מאת ד"ר מיכל וייס</p>
                     </header>
 
                     <nav className="max-w-6xl mx-auto flex flex-wrap justify-center gap-2 mb-8">
                         {[
-                            { id: 'presentation', label: '📊 מצגת מלווה למורים' },
                             { id: 'intro', label: '🚪 מהו גבול?' },
-                            { id: 'activities', label: '📋 פעילויות לכיתה' },
-                            { id: 'cards', label: '🃏 קלפי שיח' },
+                            { id: 'activities', label: '📋 פעילויות לכיתה (15)' },
+                            { id: 'cards', label: '🃏 קלפי שיח (30)' },
                             { id: 'games', label: '🎮 משחקים אינטראקטיביים' },
                         ].map((tab) => (
                             <button
@@ -186,56 +166,67 @@
                     </nav>
 
                     <main className="max-w-6xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-100 min-h-[500px]">
-                        {activeTab === 'presentation' && (
-                            <div className="max-w-4xl mx-auto space-y-6">
-                                <h2 className="text-3xl font-extrabold text-teal-900">📊 מצגת מלווה למורים</h2>
-                                <div className="relative w-full pt-[55.8342%] overflow-hidden rounded-lg bg-slate-100 shadow">
-                                    <iframe className="absolute inset-0 w-full h-full border-none" src="https://www.canva.com/design/DAHRluLiDV0/pzgnlFwNamvTgt3FjffKsw/view?embed" allowFullScreen></iframe>
-                                </div>
-                            </div>
-                        )}
-
                         {activeTab === 'intro' && (
                             <div className="max-w-4xl mx-auto space-y-6">
                                 <h2 className="text-3xl font-extrabold text-teal-900">מהו גבול? מתי הוא נחצה?</h2>
-                                <p className="text-slate-700 leading-relaxed">דמיינו מדינה ללא גבולות... כך בדיוק לכל אדם יש מרחב אישי שזקוק לגבולות ברורים כדי לפרוח.</p>
+                                <p className="text-slate-700 leading-relaxed">דמיינו מדינה ללא גבולות גיאוגרפיים – אין שערים ואין סימונים. האם מדינה כזו תוכל להתקיים? כך בדיוק לכל אדם יש מרחב אישי שזקוק לגבולות ברורים כדי לפרוח בביטחון.</p>
                             </div>
                         )}
 
                         {activeTab === 'activities' && !selectedActivity && (
                             <div>
-                                <h2 className="text-2xl font-bold text-teal-800 mb-6">פעילויות לכיתה</h2>
+                                <h2 className="text-2xl font-bold text-teal-800 mb-6">15 פעילויות מקיפות לכיתה</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {activitiesList.map(act => (
-                                        <div key={act.id} onClick={() => setSelectedActivity(act)} className="bg-slate-50 border p-5 rounded-xl cursor-pointer hover:border-teal-400">
-                                            <h3 className="font-bold text-teal-700 text-lg">{act.title}</h3>
-                                            <p className="text-slate-600 text-sm mt-2">{act.story}</p>
+                                        <div key={act.id} onClick={() => setSelectedActivity(act)} className="bg-slate-50 border p-5 rounded-xl cursor-pointer hover:border-teal-400 flex flex-col justify-between">
+                                            <div>
+                                                <span className="bg-teal-100 text-teal-800 text-xs px-2.5 py-1 rounded-full font-bold">פעילות #{act.id}</span>
+                                                <h3 className="font-bold text-teal-700 text-lg mt-3 mb-2">{act.title}</h3>
+                                                <p className="text-slate-600 text-sm line-clamp-2">{act.story}</p>
+                                            </div>
+                                            <span className="mt-4 text-xs text-teal-600 font-semibold">לחץ לצפייה בכרטיס המלא ←</span>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         )}
 
+                        {activeTab === 'activities' && selectedActivity && (
+                            <div className="max-w-3xl mx-auto bg-slate-50 p-6 rounded-2xl border-2 border-teal-200">
+                                <button onClick={() => setSelectedActivity(null)} className="mb-6 bg-slate-200 px-4 py-2 rounded-xl font-bold text-sm">← חזרה לכל הפעילויות</button>
+                                <h2 className="text-2xl font-extrabold text-teal-900 mb-4">פעילות #{selectedActivity.id}: {selectedActivity.title}</h2>
+                                <div className="bg-teal-50 p-4 rounded-xl mb-4"><strong>סיפור מסגרת:</strong> {selectedActivity.story}</div>
+                                <div className="bg-cyan-50 p-4 rounded-xl mb-4"><strong>שאלה לדיון:</strong> {selectedActivity.question}</div>
+                                <div className="bg-white p-4 rounded-xl border mb-4"><strong>מטרה:</strong> {selectedActivity.activity}</div>
+                                <div className="bg-white p-4 rounded-xl border">
+                                    <strong>הוראות ביצוע:</strong>
+                                    <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
+                                        {selectedActivity.instructions.map((ins, i) => <li key={i}>{ins}</li>)}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
                         {activeTab === 'cards' && (
                             <div>
-                                <h2 className="text-2xl font-bold text-teal-800 mb-6">קלפי שיח אינטראקטיביים</h2>
+                                <h2 className="text-2xl font-bold text-teal-800 mb-6">קלפי שיח אינטראקטיביים (30 קלפים)</h2>
                                 <div className="flex justify-center my-8">
                                     <div onClick={() => setIsFlipped(!isFlipped)} className={`w-full max-w-lg h-72 rounded-2xl shadow-xl p-8 flex flex-col justify-between cursor-pointer transition-all ${isFlipped ? 'bg-cyan-900 text-white' : 'bg-teal-50 border-2 border-teal-300'}`}>
-                                        <div className="text-center my-auto">
-                                            <p className="text-xl font-bold">{isFlipped ? dialogueCards[currentCardIndex].back : dialogueCards[currentCardIndex].front}</p>
-                                        </div>
+                                        <div className="flex justify-between text-xs opacity-70"><span>{dialogueCards[currentCardIndex].title}</span><span>{isFlipped ? '💡 תובנה' : '❓ שאלה'}</span></div>
+                                        <div className="text-center my-auto"><p className="text-xl font-bold">{isFlipped ? dialogueCards[currentCardIndex].back : dialogueCards[currentCardIndex].front}</p></div>
+                                        <div className="text-center text-xs opacity-60">לחץ על הקלף כדי להפוך</div>
                                     </div>
+                                </div>
+                                <div className="flex gap-2 overflow-x-auto pb-2">
+                                    {dialogueCards.map((c, idx) => (
+                                        <button key={c.id} onClick={() => { setCurrentCardIndex(idx); setIsFlipped(false); }} className={`px-3 py-1.5 rounded-lg text-sm font-bold shrink-0 ${currentCardIndex === idx ? 'bg-teal-700 text-white' : 'bg-slate-100 text-slate-700'}`}>{c.id}</button>
+                                    ))}
                                 </div>
                             </div>
                         )}
 
                         {activeTab === 'games' && (
                             <div>
-                                <div className="mb-8 p-4 bg-slate-50 rounded-2xl border text-center">
-                                    <div className="relative w-full pt-[54.5455%] overflow-hidden rounded-lg bg-slate-100">
-                                        <iframe className="absolute inset-0 w-full h-full border-none" src="https://www.canva.com/design/DAHRlofTwEk/Ubm3u_obwOlnqnjrlciVhw/view?embed" allowFullScreen></iframe>
-                                    </div>
-                                </div>
                                 {activeGameSubTab === 'hub' && (
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         <div onClick={() => setActiveGameSubTab('sorting')} className="bg-teal-50 border-2 border-teal-200 p-6 rounded-2xl cursor-pointer hover:shadow-lg">
@@ -255,7 +246,7 @@
 
                                 {activeGameSubTab === 'sorting' && (
                                     <div>
-                                        <button onClick={() => setActiveGameSubTab('hub')} className="mb-4 bg-slate-200 px-4 py-2 rounded-xl font-bold text-sm">← חזרה</button>
+                                        <button onClick={() => setActiveGameSubTab('hub')} className="mb-4 bg-slate-200 px-4 py-2 rounded-xl font-bold text-sm">← חזרה לתפריט</button>
                                         <div className="max-w-xl mx-auto bg-slate-50 p-6 rounded-2xl border text-center">
                                             <h3 className="text-xl font-bold mb-4">מיון מהיר (60 שניות)</h3>
                                             {!sortingActive ? (
@@ -269,6 +260,41 @@
                                                     </div>
                                                 </div>
                                             )}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {activeGameSubTab === 'wall' && (
+                                    <div>
+                                        <button onClick={() => setActiveGameSubTab('hub')} className="mb-4 bg-slate-200 px-4 py-2 rounded-xl font-bold text-sm">← חזרה לתפריט</button>
+                                        <div className="max-w-xl mx-auto bg-slate-50 p-6 rounded-2xl border text-center">
+                                            <h3 className="text-xl font-bold mb-2">חומת הגבולות</h3>
+                                            <p className="text-sm text-slate-600 mb-4">{currentWordObj.hint}</p>
+                                            <div className="text-3xl font-mono tracking-widest font-bold my-6">
+                                                {currentWordObj.word.split('').map(c => guessedLetters.includes(c) ? c : '_').join(' ')}
+                                            </div>
+                                            <div className="flex flex-wrap justify-center gap-1">
+                                                {'אבגדהוזחטיכלמנסעפצקרשת'.split('').map(l => (
+                                                    <button key={l} disabled={guessedLetters.includes(l)} onClick={() => handleLetterGuess(l)} className="w-9 h-9 bg-white border rounded font-bold hover:bg-teal-50 disabled:bg-slate-200">{l}</button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {activeGameSubTab === 'wheel' && (
+                                    <div>
+                                        <button onClick={() => setActiveGameSubTab('hub')} className="mb-4 bg-slate-200 px-4 py-2 rounded-xl font-bold text-sm">← חזרה לתפריט</button>
+                                        <div className="max-w-xl mx-auto bg-slate-50 p-6 rounded-2xl border text-center">
+                                            <h3 className="text-xl font-bold mb-2">גלגל המזל של הדילמות</h3>
+                                            <p className="text-slate-700 my-4">{wheelDilemmas[currentWheelIndex].situation}</p>
+                                            <div className="space-y-2">
+                                                {wheelDilemmas[currentWheelIndex].options.map((opt, oIdx) => (
+                                                    <button key={oIdx} onClick={() => setWheelResult(opt)} className="w-full p-3 bg-white border rounded-xl text-right font-medium text-sm hover:border-teal-400">{opt.text}</button>
+                                                ))}
+                                            </div>
+                                            {wheelResult && <div className="mt-4 p-3 bg-teal-50 rounded-xl font-bold text-sm">{wheelResult.feedback}</div>}
+                                            <button onClick={() => { setCurrentWheelIndex((currentWheelIndex + 1) % wheelDilemmas.length); setWheelResult(null); }} className="mt-6 bg-teal-600 text-white px-4 py-2 rounded-xl text-xs font-bold">דילמה הבאה 🔄</button>
                                         </div>
                                     </div>
                                 )}
